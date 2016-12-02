@@ -59,6 +59,26 @@ function create() {
 		enemy1.body.gravity.y = 500;
 		enemy1.body.collideWorldBounds = true;
 
+		enemy2 = game.add.sprite(10, 20, 'baddie');
+			// animate the sprite
+			enemy2.animations.add('left', [0,1], 10, true);
+			enemy2.animations.add('right', [2,3], 10, true);
+			game.physics.arcade.enable(enemy1);
+			// creating physics for enemy sprite
+			enemy2.body.bounce.y = 0.2;
+			enemy2.body.gravity.y = 500;
+			enemy2.body.collideWorldBounds = true;
+
+			enemy3 = game.add.sprite(200, 20, 'baddie');
+				// animate the sprite
+				enemy3.animations.add('left', [0,1], 10, true);
+				enemy3.animations.add('right', [2,3], 10, true);
+				game.physics.arcade.enable(enemy1);
+				// creating physics for enemy sprite
+				enemy3.body.bounce.y = 0.2;
+				enemy3.body.gravity.y = 500;
+				enemy3.body.collideWorldBounds = true;
+
   // Create Keyboard Events
   cursors = game.input.keyboard.createCursorKeys();
 
@@ -77,6 +97,8 @@ function update() {
   // Player Sprite and Enemy Collides with the platforms
   game.physics.arcade.collide(player, platforms);
   game.physics.arcade.collide(enemy1, platforms);
+	game.physics.arcade.collide(enemy2, platforms);
+	game.physics.arcade.collide(enemy3, platforms);
   // Player Sprite does not move if there are no events
   player.body.velocity.x = 0;
 	// Keys are pressed, what hapens
@@ -94,4 +116,70 @@ function update() {
 	if (cursor.up.isDown && player.body.touching.down){
 			player.body.velocity.y = -300;
 	}
+
+	// Enemy AI
+	if (enemy1.x > 749){
+		enemy1.body.velocity.x = -120;
+		enemy1.animations.play('left');
+	} else if (enemy1.x < 405){
+		enemy1.body.velocity.x = 120;
+		enemy.animations.play('right');
+	}
+
+	if (enemy2.x > 200){
+		enemy2.body.velocity.x = -80;
+		enemy2.animations.play('left');
+	} else if (enemy1.x < 20){
+		enemy2.body.velocity.x = 80;
+		enemy.animations.play('right');
+	}
+
+	if (enemy3.x > 749){
+		enemy3.body.velocity.x = -150;
+		enemy3.animations.play('left');
+	} else if (enemy1.x < 200){
+		enemy3.body.velocity.x = 150;
+		enemy.animations.play('right');
+	}
+
+	// Collision with Stars
+	game.physics.arcade.collide(stars, platforms);
+	// Overlap between player and stars
+	game.physics.arcade.overlap(player, stars, collectStar, null, this);
+	// Overlap between Player and Enemies
+	game.physics.arcade.overlap(player, enemy1, loseLife, null, this);
+	game.physics.arcade.overlap(player, enemy2, loseLife2, null, this);
+	game.physics.arcade.overlap(player, enemy3, loseLife, null, this);
+}
+
+// Define collectStar
+function collectStar (player, star) {
+		// Remove star
+		star.kill();
+		// Increase the score
+		score = score + 1;
+		// Create = new star
+		star = stars.create(Math.floor(Math.random() = 750), 0, 'star');
+		star.body.gravity.y = 200;
+		star.body.bounce.y = Math.random() * 0.99;
+}
+
+// Defining loseLife
+function loseLife (player, enemy) {
+		// Remove enemy
+		enemy.kill();
+		// Decrease the score
+		score = score - 1;
+		// Create a new enemy
+		enemy.reset(750, 20);
+}
+
+// Defining loseLife2
+function loseLife2 (player, enemy) {
+		// Remove enemy
+		enemy.kill();
+		// Decrease the score
+		score = score - 1;
+		// Create a new enemy
+		enemy.reset(10, 20);
 }
