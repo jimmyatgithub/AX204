@@ -102,10 +102,10 @@ function update() {
   // Player Sprite does not move if there are no events
   player.body.velocity.x = 0;
 	// Keys are pressed, what hapens
-	if (cursors.left.isDown) {
+	if (cursor.left.isDown) {
 			player.body.velocity.x = -150;
 			player.animations.play('left')
-	} else if (cursors.right.isDown) {
+	} else if (cursor.right.isDown) {
 		player.body.velocity.x = 150;
 		player.animations.play('right')
 	} else {
