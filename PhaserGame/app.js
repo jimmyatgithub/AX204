@@ -159,7 +159,7 @@ function collectStar (player, star) {
 		// Increase the score
 		score = score + 1;
 		// Create = new star
-		star = stars.create(Math.floor(Math.random() = 750), 0, 'star');
+		star = stars.create(Math.floor(Math.random() * 750), 0, 'star');
 		star.body.gravity.y = 200;
 		star.body.bounce.y = Math.random() * 0.99;
 }
