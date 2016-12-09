@@ -123,7 +123,7 @@ function update() {
 		enemy1.animations.play('left');
 	} else if (enemy1.x < 405){
 		enemy1.body.velocity.x = 120;
-		enemy.animations.play('right');
+		enemy1.animations.play('right');
 	}
 
 	if (enemy2.x > 200){
