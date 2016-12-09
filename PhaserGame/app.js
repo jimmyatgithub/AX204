@@ -80,7 +80,7 @@ function create() {
 				enemy3.body.collideWorldBounds = true;
 
   // Create Keyboard Events
-  cursors = game.input.keyboard.createCursorKeys();
+  cursor = game.input.keyboard.createCursorKeys();
 
 	// Create stars
 	stars = game.add.physicsGroup();
